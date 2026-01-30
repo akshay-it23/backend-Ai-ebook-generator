@@ -36,10 +36,14 @@ exports.registerUser = async (req, res) => {
 
     return res.status(201).json({
       message: "Registration successful",
-      _id: user._id,
-      name: user.name,
-      email: user.email,
       token: generateToken(user._id),
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        avatar: user.avatar,
+        isPro: user.isPro,
+      },
     });
   } catch (error) {
     console.error("Register error:", error);
@@ -76,10 +80,14 @@ exports.loginUser = async (req, res) => {
 
     return res.json({
       message: "Login successful",
-      _id: user._id,
-      name: user.name,
-      email: user.email,
       token: generateToken(user._id),
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        avatar: user.avatar,
+        isPro: user.isPro,
+      },
     });
   } catch (error) {
     console.error("Login error:", error);
@@ -101,11 +109,13 @@ exports.getProfile = async (req, res) => {
     }
 
     return res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      avatar: user.avatar,
-      isPro: user.isPro,
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        avatar: user.avatar,
+        isPro: user.isPro,
+      },
     });
   } catch (error) {
     console.error("Get profile error:", error);
@@ -129,11 +139,13 @@ exports.updateUserProfile = async (req, res) => {
     const updatedUser = await user.save();
 
     return res.json({
-      _id: updatedUser._id,
-      name: updatedUser.name,
-      email: updatedUser.email,
-      avatar: updatedUser.avatar,
-      isPro: updatedUser.isPro,
+      user: {
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        avatar: updatedUser.avatar,
+        isPro: updatedUser.isPro,
+      },
     });
   } catch (error) {
     console.error("Update profile error:", error);

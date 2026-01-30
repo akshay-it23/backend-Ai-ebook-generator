@@ -21,7 +21,7 @@ exports.createBook = async (req, res) => {
       status: status || "draft",
     });
 
-    return res.status(201).json(book);
+    return res.status(201).json({ book });
   } catch (error) {
     console.error("Create Book Error:", error);
     return res.status(500).json({ message: "Server Error" });
@@ -36,7 +36,7 @@ exports.getBooks = async (req, res) => {
     const books = await Book.find({ userID: req.user._id }).sort({
       createdAt: -1,
     });
-    return res.json(books);
+    return res.json({ books });
   } catch (error) {
     console.error("Get Books Error:", error);
     return res.status(500).json({ message: "Server Error" });
@@ -55,7 +55,7 @@ exports.getBookById = async (req, res) => {
 
     if (!book) return res.status(404).json({ message: "Book not found" });
 
-    return res.json(book);
+    return res.json({ book });
   } catch (error) {
     console.error("Get Book Error:", error);
     return res.status(500).json({ message: "Server Error" });
@@ -75,7 +75,7 @@ exports.updateBook = async (req, res) => {
 
     if (!book) return res.status(404).json({ message: "Book not found" });
 
-    return res.json(book);
+    return res.json({ book });
   } catch (error) {
     console.error("Update Book Error:", error);
     return res.status(500).json({ message: "Server Error" });
@@ -120,7 +120,7 @@ exports.updateBookCover = async (req, res) => {
 
     if (!book) return res.status(404).json({ message: "Book not found" });
 
-    return res.json(book);
+    return res.json({ book });
   } catch (error) {
     console.error("Update Cover Error:", error);
     return res.status(500).json({ message: "Server Error" });

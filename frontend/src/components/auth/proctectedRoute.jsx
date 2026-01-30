@@ -1,24 +1,21 @@
-import React from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
+import Loader from '../ui/Loader';
 
 const ProtectedRoute = ({ children }) => {
-  const isAuthenticated = false;  // user login check
-  const loading = false;          // optional loading status
-
-  const location = useLocation(); // <-- THIS WILL WORK NOW
+  const { isAuthenticated, loading } = useAuth();
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader size="lg" text="Loading..." />
+      </div>
+    );
   }
 
   if (!isAuthenticated) {
-    return (
-      <Navigate
-        to="/login"
-        state={{ from: location }}
-        replace
-      />
-    );
+    return <Navigate to="/login" replace />;
   }
 
   return children;
